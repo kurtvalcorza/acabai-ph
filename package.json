@@ -1,0 +1,22 @@
+{
+  "name": "acabai-ph-hero-redesign",
+  "version": "1.0.0",
+  "description": "ACABAI-PH Hero Section Redesign Tests",
+  "main": "index.html",
+  "scripts": {
+    "test": "node tests/run-all-tests.js",
+    "test:property": "node tests/hero-typography.test.js",
+    "test:layout": "node tests/layout-structure.test.js",
+    "test:content": "node tests/content-preservation.test.js",
+    "test:watch": "nodemon tests/run-all-tests.js",
+    "serve": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "devDependencies": {
+    "jsdom": "^22.1.0",
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["acabai", "hero-section", "redesign", "property-based-testing"],
+  "author": "DOST-ASTI",
+  "license": "MIT"
+}
