@@ -817,9 +817,19 @@ section {
 
     .footer.readiness-footer .readiness-content {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
         padding: 0;
         margin-bottom: 2rem;
+    }
+
+    .footer.readiness-footer .readiness-image {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .footer.readiness-footer .readiness-image img {
+        max-height: 300px;
+        object-fit: cover;
     }
 
     .initiative-card.reverse .initiative-image,
@@ -861,6 +871,7 @@ section {
     .hero {
         min-height: 80vh;
         text-align: center;
+        padding-top: 120px;
     }
 
     .hero-content {
@@ -953,6 +964,7 @@ section {
 
     .hero-mission {
         font-size: 1.25rem !important;
+        padding: 0 0.5rem;
     }
 
     .initiative-card,
