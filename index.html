@@ -10,6 +10,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- SEO & Metadata -->
+    <meta name="description"
+        content="ACABAI-PH: Advancing Computing, Analytics, Big Data, and AI for the Philippines. Democratizing AI tools and infrastructure for every Filipino innovator.">
+    <meta name="theme-color" content="#1e3a8a">
+    <link rel="canonical" href="https://acabai-ph.vercel.app/">
+    <link rel="icon" href="assets-optimized/1.png" type="image/png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acabai-ph.vercel.app/">
+    <meta property="og:title" content="ACABAI-PH | Advancing AI for the Philippines">
+    <meta property="og:description"
+        content="Building the national launchpad for Filipino AI innovation. Access high-performance computing, datasets, and models through DOST-NAIRA.">
+    <meta property="og:image" content="https://acabai-ph.vercel.app/assets-optimized/social-preview.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://acabai-ph.vercel.app/">
+    <meta name="twitter:title" content="ACABAI-PH | Advancing AI for the Philippines">
+    <meta name="twitter:description"
+        content="Building the national launchpad for Filipino AI innovation. Democratizing AI for every Filipino.">
+    <meta name="twitter:image" content="https://acabai-ph.vercel.app/assets-optimized/social-preview.png">
+
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -21,23 +45,38 @@
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+        <!-- Sun Icon -->
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+            </path>
+        </svg>
+        <!-- Moon Icon -->
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
     <!-- Fixed Floating Logo -->
-    <div class="floating-logo-fixed">
-        <img src="assets-optimized/1.png" alt="ACABAI Philippines">
+    <div class="floating-logo-fixed" role="button" tabindex="0" aria-label="Scroll to top of page">
+        <img src="assets-optimized/1.png" alt="ACABAI Philippines Logo - Scroll to top">
     </div>
 
     <!-- Hero Section -->
     <header class="hero" role="banner" aria-label="ACABAI-PH Hero Section">
         <!-- Video Background -->
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata" 
-               aria-hidden="true" role="presentation">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true"
+            role="presentation">
             <source src="assets-optimized/0-optimized.webm" type="video/webm">
             <source src="assets-optimized/0-optimized.mp4" type="video/mp4">
         </video>
-        
+
         <!-- Fallback Background Image -->
         <div class="hero-fallback" aria-hidden="true"></div>
-        
+
         <div class="container hero-content">
             <div class="hero-badge" data-reveal>DOST ELEV8PH</div>
             <h1 data-reveal>Advancing Computing, Analytics, Big Data, and Artificial Intelligence for the Philippines
@@ -82,10 +121,10 @@
             <div class="initiative-card" data-reveal>
                 <div class="initiative-image">
                     <picture>
-                        <source srcset="assets-optimized/3.webp" type="image/webp" 
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                        <source srcset="assets-optimized/3.webp" type="image/webp"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                         <img src="assets-optimized/3.png" alt="DOST-NAIRA" loading="lazy"
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -105,9 +144,9 @@
                 <div class="initiative-image">
                     <picture>
                         <source srcset="assets-optimized/2.webp" type="image/webp"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                         <img src="assets-optimized/2.png" alt="DIMER Repository" loading="lazy"
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -125,9 +164,9 @@
                 <div class="initiative-image">
                     <picture>
                         <source srcset="assets-optimized/5.webp" type="image/webp"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                         <img src="assets-optimized/5.png" alt="iTANONG Interface" loading="lazy"
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -154,9 +193,9 @@
                 <div class="readiness-image">
                     <picture>
                         <source srcset="assets-optimized/4.webp" type="image/webp"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                         <img src="assets-optimized/4.png" alt="AI Readiness Assessment" loading="lazy"
-                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="readiness-text">
