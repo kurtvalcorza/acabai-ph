@@ -928,8 +928,8 @@ section {
     bottom: 2rem;
     right: 2rem;
     width: 450px;
-    height: 700px;
-    max-height: 85vh;
+    height: calc(100vh - 6rem);
+    max-height: calc(100vh - 6rem);
     background: white;
     box-shadow: var(--shadow-xl);
     border-radius: 1rem;
@@ -968,6 +968,11 @@ section {
     padding: 0.25rem;
     border-radius: 0.25rem;
     transition: var(--transition);
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-close:hover {
@@ -1218,14 +1223,27 @@ section {
     }
 
     .modal-window {
-        width: calc(100vw - 2rem);
-        height: calc(100vh - 4rem);
-        bottom: 1rem;
-        right: 1rem;
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
     }
 
     .initiative-card {
         padding: 2rem;
+    }
+
+    .modal-close {
+        font-size: 2rem;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 0.5rem;
+    }
+
+    .modal-header {
+        padding: 1.25rem 1.5rem;
     }
 
     .initiative-content h3 {
