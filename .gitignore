@@ -2,3 +2,9 @@ node_modules/
 .DS_Store
 .env
 desktop.ini
+Thumbs.db
+*.log
+.vscode/
+.idea/
+tests/
+validate-implementation.md

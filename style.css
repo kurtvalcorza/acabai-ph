@@ -53,6 +53,18 @@
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
 
+    /* Animation timing */
+    --animation-duration-fast: 200ms;
+    --animation-duration-normal: 300ms;
+    --animation-duration-slow: 500ms;
+    
+    /* Z-index scale */
+    --z-index-video: 0;
+    --z-index-overlay: 1;
+    --z-index-content: 2;
+    --z-index-floating: 1000;
+    --z-index-modal: 1001;
+
     /* Other Design Tokens */
     --border-color: #e5e7eb;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -60,9 +72,9 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all var(--animation-duration-normal) cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all var(--animation-duration-fast) cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all var(--animation-duration-slow) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -190,7 +202,7 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    z-index: var(--z-index-video);
     opacity: 0.6;
 }
 
@@ -203,7 +215,7 @@ section {
     bottom: 0;
     background: var(--bg-hero-gradient);
     opacity: 0.6;
-    z-index: 0;
+    z-index: var(--z-index-video);
     display: none; /* Hidden by default, shown when video fails */
 }
 
@@ -238,13 +250,13 @@ section {
             rgba(239, 246, 255, 0.6) 0%,
             rgba(219, 234, 254, 0.5) 50%,
             rgba(191, 219, 254, 0.4) 100%);
-    z-index: 1;
+    z-index: var(--z-index-overlay);
 }
 
 .hero-content {
     grid-area: content;
     position: relative;
-    z-index: 2;
+    z-index: var(--z-index-content);
     max-width: 800px;
     width: 100%;
     display: flex;
@@ -260,7 +272,7 @@ section {
     position: fixed;
     top: 2rem;
     left: 2rem;
-    z-index: 1000;
+    z-index: var(--z-index-floating);
     animation: float 6s ease-in-out infinite;
     transition: var(--transition);
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));

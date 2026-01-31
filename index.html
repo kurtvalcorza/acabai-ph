@@ -29,7 +29,8 @@
     <!-- Hero Section -->
     <header class="hero" role="banner" aria-label="ACABAI-PH Hero Section">
         <!-- Video Background -->
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" 
+               aria-hidden="true" role="presentation">
             <source src="assets-optimized/0-optimized.webm" type="video/webm">
             <source src="assets-optimized/0-optimized.mp4" type="video/mp4">
         </video>
@@ -41,7 +42,7 @@
             <div class="hero-badge" data-reveal>DOST ELEV8PH</div>
             <h1 data-reveal>Advancing Computing, Analytics, Big Data, and Artificial Intelligence for the Philippines
             </h1>
-            <h2 class="hero-mission" data-reveal>Our Mission: Democratizing AI for Every Filipino</h2>
+            <h2 class="hero-mission" data-reveal>Our Mission: Democratize AI for Every Filipino</h2>
             <p class="hero-description" data-reveal>The Philippines has immense talent and world-class creativity. Yet,
                 for too long, our innovators have been stalled by limited access to powerful AI tools. High costs, a
                 persistent digital divide, and siloed efforts have held back our nation's potential.</p>
@@ -81,8 +82,10 @@
             <div class="initiative-card" data-reveal>
                 <div class="initiative-image">
                     <picture>
-                        <source srcset="assets-optimized/3.webp" type="image/webp">
-                        <img src="assets-optimized/3.png" alt="DOST-NAIRA" loading="lazy">
+                        <source srcset="assets-optimized/3.webp" type="image/webp" 
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                        <img src="assets-optimized/3.png" alt="DOST-NAIRA" loading="lazy"
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -101,8 +104,10 @@
             <div class="initiative-card reverse" data-reveal>
                 <div class="initiative-image">
                     <picture>
-                        <source srcset="assets-optimized/2.webp" type="image/webp">
-                        <img src="assets-optimized/2.png" alt="DIMER Repository" loading="lazy">
+                        <source srcset="assets-optimized/2.webp" type="image/webp"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                        <img src="assets-optimized/2.png" alt="DIMER Repository" loading="lazy"
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -119,8 +124,10 @@
             <div class="initiative-card" data-reveal>
                 <div class="initiative-image">
                     <picture>
-                        <source srcset="assets-optimized/5.webp" type="image/webp">
-                        <img src="assets-optimized/5.png" alt="iTANONG Interface" loading="lazy">
+                        <source srcset="assets-optimized/5.webp" type="image/webp"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                        <img src="assets-optimized/5.png" alt="iTANONG Interface" loading="lazy"
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="initiative-content">
@@ -146,8 +153,10 @@
             <div class="readiness-content" data-reveal>
                 <div class="readiness-image">
                     <picture>
-                        <source srcset="assets-optimized/4.webp" type="image/webp">
-                        <img src="assets-optimized/4.png" alt="AI Readiness Assessment" loading="lazy">
+                        <source srcset="assets-optimized/4.webp" type="image/webp"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
+                        <img src="assets-optimized/4.png" alt="AI Readiness Assessment" loading="lazy"
+                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px">
                     </picture>
                 </div>
                 <div class="readiness-text">
@@ -247,6 +256,7 @@
 
     <script src="script.js"></script>
     <script src="video-background.js"></script>
+    <script src="performance-monitor.js"></script>
 </body>
 
 </html>

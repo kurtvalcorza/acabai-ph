@@ -39,6 +39,9 @@ class VideoBackgroundManager {
             return;
         }
         
+        // Set up global error handling
+        this.setupGlobalErrorHandling();
+        
         // Set up video event listeners
         this.setupVideoEvents();
         
@@ -49,6 +52,32 @@ class VideoBackgroundManager {
         this.monitorNetworkConditions();
         
         console.log('Video background manager initialized');
+    }
+    
+    setupGlobalErrorHandling() {
+        // Handle unhandled promise rejections related to video
+        window.addEventListener('unhandledrejection', (event) => {
+            if (event.reason && event.reason.toString().toLowerCase().includes('video')) {
+                console.warn('Video-related promise rejection:', event.reason);
+                this.trackVideoError({
+                    code: 'promise_rejection',
+                    message: event.reason.toString(),
+                    networkState: this.video?.networkState || 'unknown',
+                    readyState: this.video?.readyState || 'unknown',
+                    timestamp: Date.now()
+                });
+                this.useStaticFallback('Promise rejection');
+                event.preventDefault();
+            }
+        });
+        
+        // Handle general errors that might affect video
+        window.addEventListener('error', (event) => {
+            if (event.filename && event.filename.includes('video-background')) {
+                console.warn('Video background script error:', event.error);
+                this.useStaticFallback('Script error');
+            }
+        });
     }
     
     shouldUseVideo() {
@@ -77,37 +106,71 @@ class VideoBackgroundManager {
     }
     
     setupVideoEvents() {
+        // Track loading start time for performance metrics
+        this.loadStartTime = performance.now();
+        
         // Video loading events
         this.video.addEventListener('loadstart', () => {
             console.log('Video loading started');
+            this.trackVideoEvent('loadstart');
         });
         
         this.video.addEventListener('canplay', () => {
             console.log('Video can start playing');
+            this.trackVideoEvent('canplay');
             this.onVideoReady();
         });
         
         this.video.addEventListener('canplaythrough', () => {
             console.log('Video can play through without buffering');
+            this.trackVideoEvent('canplaythrough');
         });
         
-        // Error handling
+        // Enhanced error handling
         this.video.addEventListener('error', (e) => {
-            console.error('Video loading error:', e);
+            const errorDetails = {
+                code: e.target.error?.code || 'unknown',
+                message: e.target.error?.message || 'Unknown video error',
+                networkState: e.target.networkState,
+                readyState: e.target.readyState,
+                currentSrc: e.target.currentSrc,
+                timestamp: Date.now()
+            };
+            
+            console.error('Video loading error:', errorDetails);
+            this.trackVideoError(errorDetails);
             this.useStaticFallback('Video loading error');
         });
         
         this.video.addEventListener('stalled', () => {
             console.warn('Video loading stalled');
+            this.trackVideoEvent('stalled');
+        });
+        
+        this.video.addEventListener('suspend', () => {
+            console.warn('Video loading suspended');
+            this.trackVideoEvent('suspend');
+        });
+        
+        this.video.addEventListener('abort', () => {
+            console.warn('Video loading aborted');
+            this.trackVideoEvent('abort');
         });
         
         // Playback events
         this.video.addEventListener('play', () => {
             console.log('Video playback started');
+            this.trackVideoEvent('play');
         });
         
         this.video.addEventListener('pause', () => {
             console.log('Video playback paused');
+            this.trackVideoEvent('pause');
+        });
+        
+        this.video.addEventListener('ended', () => {
+            console.log('Video playback ended');
+            this.trackVideoEvent('ended');
         });
     }
     
@@ -184,10 +247,42 @@ class VideoBackgroundManager {
     
     trackVideoSuccess() {
         // Track successful video loading for analytics
+        const loadTime = performance.now() - this.loadStartTime;
+        
         if (typeof gtag !== 'undefined') {
             gtag('event', 'video_background_success', {
                 event_category: 'performance',
-                event_label: 'hero_video'
+                event_label: 'hero_video',
+                load_time: Math.round(loadTime),
+                video_resolution: `${this.video.videoWidth}x${this.video.videoHeight}`,
+                video_duration: Math.round(this.video.duration || 0)
+            });
+        }
+        
+        // Log performance metrics
+        console.log(`Video loaded successfully in ${Math.round(loadTime)}ms`);
+    }
+    
+    trackVideoError(errorDetails) {
+        // Track video errors for analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'video_background_error', {
+                event_category: 'error',
+                event_label: errorDetails.code,
+                error_message: errorDetails.message,
+                network_state: errorDetails.networkState,
+                ready_state: errorDetails.readyState
+            });
+        }
+    }
+    
+    trackVideoEvent(eventType) {
+        // Track video events for debugging
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'video_background_event', {
+                event_category: 'video_lifecycle',
+                event_label: eventType,
+                timestamp: Date.now()
             });
         }
     }
