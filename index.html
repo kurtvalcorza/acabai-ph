@@ -23,11 +23,20 @@
 
     <!-- Fixed Floating Logo -->
     <div class="floating-logo-fixed">
-        <img src="assets/1.png" alt="ACABAI Philippines">
+        <img src="assets-optimized/1.png" alt="ACABAI Philippines">
     </div>
 
     <!-- Hero Section -->
     <header class="hero" role="banner" aria-label="ACABAI-PH Hero Section">
+        <!-- Video Background -->
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+            <source src="assets-optimized/0-optimized.webm" type="video/webm">
+            <source src="assets-optimized/0-optimized.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Fallback Background Image -->
+        <div class="hero-fallback" aria-hidden="true"></div>
+        
         <div class="container hero-content">
             <div class="hero-badge" data-reveal>DOST ELEV8PH</div>
             <h1 data-reveal>Advancing Computing, Analytics, Big Data, and Artificial Intelligence for the Philippines
@@ -71,7 +80,10 @@
             <!-- NAIRA -->
             <div class="initiative-card" data-reveal>
                 <div class="initiative-image">
-                    <img src="assets/3.png" alt="DOST-NAIRA">
+                    <picture>
+                        <source srcset="assets-optimized/3.webp" type="image/webp">
+                        <img src="assets-optimized/3.png" alt="DOST-NAIRA" loading="lazy">
+                    </picture>
                 </div>
                 <div class="initiative-content">
                     <h3>Nexus for Artificial Intelligence Research and Application (DOST-NAIRA)</h3>
@@ -88,7 +100,10 @@
             <!-- DIMER -->
             <div class="initiative-card reverse" data-reveal>
                 <div class="initiative-image">
-                    <img src="assets/2.png" alt="DIMER Repository">
+                    <picture>
+                        <source srcset="assets-optimized/2.webp" type="image/webp">
+                        <img src="assets-optimized/2.png" alt="DIMER Repository" loading="lazy">
+                    </picture>
                 </div>
                 <div class="initiative-content">
                     <h3>Democratized Intelligent Model Exchange Repository (DIMER)</h3>
@@ -103,7 +118,10 @@
             <!-- iTANONG -->
             <div class="initiative-card" data-reveal>
                 <div class="initiative-image">
-                    <img src="assets/5.png" alt="iTANONG Interface">
+                    <picture>
+                        <source srcset="assets-optimized/5.webp" type="image/webp">
+                        <img src="assets-optimized/5.png" alt="iTANONG Interface" loading="lazy">
+                    </picture>
                 </div>
                 <div class="initiative-content">
                     <h3>iTANONG: Leveraging NLP for Inclusive Data Access</h3>
@@ -127,7 +145,10 @@
         <div class="container">
             <div class="readiness-content" data-reveal>
                 <div class="readiness-image">
-                    <img src="assets/4.png" alt="AI Readiness Assessment" loading="lazy">
+                    <picture>
+                        <source srcset="assets-optimized/4.webp" type="image/webp">
+                        <img src="assets-optimized/4.png" alt="AI Readiness Assessment" loading="lazy">
+                    </picture>
                 </div>
                 <div class="readiness-text">
                     <h2>Get Started with Your AI Readiness Assessment</h2>
@@ -225,6 +246,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="video-background.js"></script>
 </body>
 
 </html>
