@@ -34,7 +34,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: var(--text-primary);
     font-weight: 700;
     line-height: 1.2;
@@ -131,7 +136,7 @@ section {
 }
 
 .floating-logo-fixed img {
-    height: 70px;
+    height: 80px;
     width: auto;
     filter: drop-shadow(0 4px 12px rgba(30, 64, 175, 0.3));
     transition: var(--transition);
@@ -153,13 +158,16 @@ section {
 }
 
 .floating-logo-fixed.scrolled img {
-    height: 60px;
+    height: 70px;
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-8px);
     }
@@ -689,6 +697,7 @@ section {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -699,10 +708,12 @@ section {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
 }
+
 .modal-window {
     position: fixed;
     bottom: 2rem;
@@ -772,6 +783,7 @@ section {
         opacity: 0;
         transform: translateY(40px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -795,111 +807,138 @@ section {
     .container {
         padding: 0 1.5rem;
     }
-    
+
     .initiative-card,
-    .footer.readiness-footer .readiness-content {
+    .initiative-card.reverse {
         grid-template-columns: 1fr;
         gap: 2rem;
-        padding: 2rem;
+        padding: 2.5rem;
     }
-    
+
+    .footer.readiness-footer .readiness-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
     .initiative-card.reverse .initiative-image,
     .initiative-card.reverse .initiative-content {
         order: unset;
     }
-    
-    .footer.readiness-footer .readiness-content {
-        padding: 0;
-        margin-bottom: 2rem;
-    }
-    
+
     .footer.readiness-footer .readiness-actions .footer-social {
         flex-direction: row;
         align-items: flex-start;
         gap: 1rem;
         justify-content: flex-start;
     }
-    
+
     .footer.readiness-footer .social-link {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
     }
 }
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem;
-    }
-    
-    h2 {
-        font-size: 2rem;
-    }
-    
-    .section-title {
         font-size: 2.25rem;
     }
-    
-    section {
-        padding: 3rem 0;
+
+    h2 {
+        font-size: 1.75rem;
     }
-    
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    section {
+        padding: 4rem 0;
+    }
+
     .hero {
         min-height: 80vh;
+        text-align: center;
     }
-    
+
+    .hero-content {
+        margin: 0 auto;
+    }
+
     .hero-actions {
+        justify-content: center;
         flex-direction: column;
         align-items: stretch;
     }
-    
+
+    .hero-mission {
+        font-size: 1.5rem !important;
+    }
+
+    .hero-description {
+        font-size: 1.125rem !important;
+    }
+
     .btn {
         text-align: center;
     }
-    
+
     /* Mobile floating logo adjustments */
     .floating-logo-fixed {
         top: 1rem;
         left: 1rem;
     }
-    
+
     .floating-logo-fixed img {
+        height: 60px;
+    }
+
+    .floating-logo-fixed.scrolled img {
         height: 55px;
     }
-    
-    .floating-logo-fixed.scrolled img {
-        height: 50px;
-    }
-    
+
     /* Mobile video modal adjustments */
     .video-modal-window {
         width: 95vw;
         height: 70vh;
         max-height: none;
     }
-    
+
     /* Mobile launchpad adjustments */
     .launchpad-content {
         padding: 2rem;
-        margin: 0 1rem;
+        margin: 0 auto;
     }
-    
+
     .launchpad-content h2 {
-        font-size: 2rem;
+        font-size: 1.875rem;
     }
-    
+
     .assistant-bubble span {
         display: none;
     }
-    
+
     .assistant-bubble {
         padding: 1rem;
+        right: 1.5rem;
+        bottom: 1.5rem;
     }
-    
+
     .modal-window {
         width: calc(100vw - 2rem);
         height: calc(100vh - 4rem);
         bottom: 1rem;
         right: 1rem;
+    }
+
+    .initiative-card {
+        padding: 2rem;
+    }
+
+    .initiative-content h3 {
+        font-size: 1.5rem;
     }
 }
 
@@ -907,13 +946,25 @@ section {
     .container {
         padding: 0 1rem;
     }
-    
+
     h1 {
-        font-size: 2rem;
+        font-size: 1.875rem;
     }
-    
+
+    .hero-mission {
+        font-size: 1.25rem !important;
+    }
+
     .initiative-card,
     .launchpad-content {
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+
+    .initiative-content h3 {
+        font-size: 1.375rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
     }
 }
