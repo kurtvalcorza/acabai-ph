@@ -50,24 +50,30 @@ acabai-ph/
 - Accessibility-compliant design
 - Fast loading with optimized assets
 
-## 🎯 Our Mission: Democratize AI for Every Filipino
+## Advancing Computing, Analytics, Big Data, and Artificial Intelligence for the Philippines
+
+### 🎯 Our Mission: Democratize AI for Every Filipino
 
 The Philippines has immense talent and world-class creativity. Yet, for too long, our innovators have been stalled by limited access to powerful AI tools. High costs, a persistent digital divide, and siloed efforts have held back our nation's potential.
 
-## Your Launchpad for AI Innovation
+### Your Launchpad for AI Innovation
 
 ACABAI-PH is our strategic response. We are building the national launchpad for Filipino AI innovation, providing the infrastructure, tools, and collaborative environment needed to turn brilliant ideas into high-impact solutions. Our goal is to ensure that the next world-changing innovation doesn't stay grounded, but achieves escape velocity to benefit every corner of the archipelago.
 
 Learn more about ACABAI-PH: 
 https://www.youtube.com/watch?v=-S1wofdiRr4
 
+## Key Initiatives
+
 ### Nexus for Artificial Intelligence Research and Application (DOST-NAIRA)
 
-Think of us as the mission control for the Philippines' AI ambitions. We are creating a sovereign "AI-as-a-Service" platform—an automated factory for AI development that empowers innovators to focus on their mission, not on building the rocket.
+**Mission Control for 🇵🇭 AI space**
+
+We are creating an "AI-as-a-Service" platform—an automated factory for AI development that empowers innovators to focus on their mission, not on building the rocket.
 
 By providing centralized access to high-performance computing, curated datasets, and expert guidance, we are removing the friction that has traditionally slowed down AI development. DOST-NAIRA is where government, academe, and industry converge to build the tools that will design our nation's future.
 
-### Democratized Intelligent Model Exchange Repository (DIMER)
+#### Democratized Intelligent Model Exchange Repository (DIMER)
 
 **Democratizing AI—One Model at a Time**
 
@@ -92,7 +98,7 @@ https://itanong.asti.dost.gov.ph/
 
 ## 🎯 Get Started with Your AI Readiness Assessment 
 
-Empower your organization to leverage AI in addressing real-world challenges! 
+Be empowered to leverage AI in addressing real-world challenges! 
 
 Interact with our Self-Service AI Readiness Assessment Tool—an intelligent chatbot designed to help organizations quickly assess their readiness to adopt and deploy AI solutions. 
 
@@ -105,7 +111,15 @@ Through a guided, conversational experience, the chatbot will:
 
 For partnership inquiries, pilot collaborations, or follow-up discussions, you may also contact us at info@asti.dost.gov.ph.
 
-You may also visit the DOST-ASTI website at https://asti.dost.gov.ph/ or follow us on Facebook at https://www.facebook.com/DOSTASTI for updates on programs, initiatives, and collaboration opportunities.
+### Connect with DOST-ASTI
+
+- **Email:** info@asti.dost.gov.ph
+- **Website:** https://asti.dost.gov.ph/
+- **Facebook:** https://www.facebook.com/DOSTASTI
+- **LinkedIn:** https://www.linkedin.com/company/dost-asti/
+- **X (Twitter):** https://x.com/dostasti
+- **YouTube:** https://www.youtube.com/@DOST-ASTI
+- **Instagram:** https://www.instagram.com/dost_asti
 
 ## 🏗 Development
 
@@ -162,20 +176,6 @@ For manual deployment:
 4. Test thoroughly
 5. Submit a pull request
 
-## 📞 Contact
-
-For partnership inquiries, pilot collaborations, or technical support:
-- Email: info@asti.dost.gov.ph
-- Website: https://asti.dost.gov.ph/
-- Facebook: https://www.facebook.com/DOSTASTI
-
 ---
 
-## About ACABAI-PH Initiatives
-
-The Philippines has immense talent and world-class creativity. Yet, for too long, our innovators have been stalled by limited access to the powerful tools of Artificial Intelligence. High costs, a persistent digital divide, and siloed efforts have held back our nation's potential.
-
-ACABAI-PH is our strategic response. We are building the national launchpad for Filipino AI innovation, providing the infrastructure, tools, and collaborative environment needed to turn brilliant ideas into high-impact solutions. Our goal is to ensure that the next world-changing innovation doesn't stay grounded, but achieves escape velocity to benefit every corner of the archipelago.
-
-Learn more about ACABAI-PH: 
-https://www.youtube.com/watch?v=-S1wofdiRr4
+*Built with AI assistance for 🇵🇭*
