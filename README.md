@@ -1,6 +1,5 @@
 # Advancing Computing, Analytics, Big Data, and Artificial Intelligence for the Philippines
 
-![[1.png]]
 ## Our Mission: Democratizing AI for Every Filipino
 
 The Philippines has immense talent and world-class creativity. Yet, for too long, our innovators have been stalled by limited access to the powerful tools of Artificial Intelligence. High costs, a persistent digital divide, and siloed efforts have held back our nation's potential.
@@ -18,7 +17,6 @@ Think of us as the mission control for the Philippines' AI ambitions. We are cre
 
 By providing centralized access to high-performance computing, curated datasets, and expert guidance, we are removing the friction that has traditionally slowed down AI development. DOST-NAIRA is where government, academe, and industry converge to build the tools that will design our nation's future.
 
-![[3.png]]
 ### Democratized Intelligent Model Exchange Repository (DIMER)
 
 ** Democratizing AI—One Model at a Time **
@@ -31,7 +29,6 @@ DIMER is the Philippines’ first open repository of AI models, created to make 
 Explore DIMER (public beta): 
 https://dimer5.asti.dost.gov.ph/
 
-![[2.png]]
 ### iTANONG: Leveraging NLP for Inclusive Data Access
 
 ** May gusto ka bang iTANONG?**
@@ -43,7 +40,6 @@ Using advanced Text-to-SQL and Retrieval-Augmented Generation, iTANONG provides 
 Explore iTANONG: 
 https://itanong.asti.dost.gov.ph/
 
-![[5.png]]
 ## Get Started with Your AI Readiness Assessment 
 
 Be empowered to leverage AI in addressing real-world challenges! 
@@ -62,5 +58,3 @@ For partnership inquiries, pilot collaborations, or follow-up discussions, you m
 You may also visit the DOST-ASTI website at https://asti.dost.gov.ph/ or follow us on Facebook at https://www.facebook.com/DOSTASTI for updates on programs, initiatives, and collaboration opportunities.
 
 Start your AI Readiness Assessment now and take the first step toward responsible, impactful AI adoption.
-
-![[4.png]]
