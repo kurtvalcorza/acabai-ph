@@ -895,9 +895,10 @@ section {
     }
 
     .hero {
-        min-height: 80vh;
+        min-height: 90vh;
         text-align: center;
         padding-top: 120px;
+        padding-bottom: 4rem;
     }
 
     .hero-content {
