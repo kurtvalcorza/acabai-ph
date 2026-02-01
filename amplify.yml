@@ -1,23 +1,12 @@
 version: 1
 frontend:
   phases:
-    # preBuild:
-    #   commands:
-    #     - echo "No build process needed for static site"
     build:
       commands:
-        - echo "Static site - no build required"
+        - echo "Building static site"
   artifacts:
-    # IMPORTANT - Include everything needed for your site
+    baseDirectory: '.'
     files:
       - '**/*'
-    # Exclude unnecessary files
     exclude-paths:
       - node_modules/**/*
-      - .git/**/*
-      - .gitignore
-      - README.md
-      - package.json
-      - package-lock.json
-  cache:
-    paths: []
