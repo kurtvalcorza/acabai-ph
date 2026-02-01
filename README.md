@@ -26,6 +26,8 @@ acabai-ph/
 ├── index.html              # Main HTML file
 ├── style.css               # Styles and responsive design
 ├── script.js               # Interactive functionality
+├── chatbot-config.js       # Chatbot failover and load balancing
+├── config.js               # Environment-based configuration
 ├── video-background.js     # Video background management
 ├── performance-monitor.js  # Performance optimization
 ├── assets-optimized/       # Optimized images and media
@@ -45,6 +47,8 @@ acabai-ph/
 
 - Responsive design for all device sizes
 - Interactive hero section with video background
+- **Dual-hosted AI chatbot with automatic failover**
+- **Load balancing and redundancy for chatbot services**
 - Performance monitoring and optimization
 - SEO-optimized with Open Graph metadata
 - Accessibility-compliant design
@@ -102,7 +106,40 @@ Be empowered to leverage AI in addressing real-world challenges!
 
 Interact with our Self-Service AI Readiness Assessment Tool—an intelligent chatbot designed to help organizations quickly assess their readiness to adopt and deploy AI solutions. 
 
-https://ai-readiness-assessment-eta.vercel.app/
+**Primary:** https://ai-readiness-assessment-eta.vercel.app/
+**Backup:** https://main.d2rz9a4li16ohv.amplifyapp.com/
+
+### Chatbot Hosting & Redundancy
+
+The AI Readiness Assessment chatbot is deployed on multiple platforms for reliability:
+
+- **Primary Instance:** Vercel (https://ai-readiness-assessment-eta.vercel.app/)
+- **Backup Instance:** AWS Amplify (https://main.d2rz9a4li16ohv.amplifyapp.com/)
+
+#### Automatic Failover System
+
+The website implements an intelligent fallback system:
+
+1. **Default Behavior:** Attempts to load the Vercel instance first
+2. **Automatic Fallback:** If the primary fails or times out (10 seconds), automatically switches to AWS Amplify
+3. **Error Handling:** If both instances fail, displays a user-friendly error message with contact information
+4. **Performance Optimization:** Preloads the chatbot on hover for faster response times
+
+#### Configuration Options
+
+The chatbot manager supports multiple load balancing strategies (configured in `chatbot-config.js`):
+
+- **`fallback`** (Default): Primary → Backup sequence
+- **`random`**: Random selection between both instances
+- **`round-robin`**: Alternates between instances for load distribution
+
+#### Testing Failover
+
+To test the fallback functionality:
+1. Open browser Developer Tools → Network tab
+2. Block requests to the primary Vercel URL
+3. Open the chatbot - it should automatically fall back to AWS Amplify
+4. Check console for fallback process warnings
 
 Through a guided, conversational experience, the chatbot will:
 - Identify your organization’s current AI maturity and capabilities

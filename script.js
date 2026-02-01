@@ -207,13 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Initialize chatbot manager
+    const chatbotManager = new ChatbotManager();
+    
     // Preload iframe when modal is about to be opened (on hover)
     let iframePreloaded = false;
     assistantBtn?.addEventListener('mouseenter', () => {
         if (!iframePreloaded) {
             const iframe = assistantPopup?.querySelector('.assessment-iframe');
             if (iframe && !iframe.src) {
-                iframe.src = 'https://ai-readiness-assessment-eta.vercel.app/';
+                chatbotManager.loadChatbot(iframe);
                 iframePreloaded = true;
             }
         }
