@@ -10,8 +10,39 @@ class VideoBackgroundManager {
         this.fallbackElement = null;
         this.isVideoSupported = true;
         this.loadTimeout = 10000; // 10 seconds timeout
+        this.isProduction = window.location.hostname !== 'localhost' && 
+                           window.location.hostname !== '127.0.0.1';
         
         this.init();
+    }
+    
+    // Sanitize error details for production
+    sanitizeError(errorDetails) {
+        if (this.isProduction) {
+            return {
+                code: 'VIDEO_ERROR',
+                message: 'An error occurred loading the video',
+                timestamp: Date.now()
+            };
+        }
+        return errorDetails;
+    }
+    
+    // Safe logging that respects environment
+    safeLog(level, message, data = null) {
+        if (this.isProduction && level === 'error') {
+            // In production, only log sanitized errors
+            console.error(message, this.sanitizeError(data));
+        } else if (!this.isProduction) {
+            // In development, log everything
+            if (level === 'error') {
+                console.error(message, data);
+            } else if (level === 'warn') {
+                console.warn(message, data);
+            } else {
+                console.log(message, data);
+            }
+        }
     }
     
     init() {
@@ -29,7 +60,7 @@ class VideoBackgroundManager {
         this.fallbackElement = document.querySelector('.hero-fallback');
         
         if (!this.video || !this.heroSection) {
-            console.warn('Video background elements not found');
+            this.safeLog('warn', 'Video background elements not found');
             return;
         }
         
@@ -51,14 +82,14 @@ class VideoBackgroundManager {
         // Monitor network conditions
         this.monitorNetworkConditions();
         
-        console.log('Video background manager initialized');
+        this.safeLog('log', 'Video background manager initialized');
     }
     
     setupGlobalErrorHandling() {
         // Handle unhandled promise rejections related to video
         window.addEventListener('unhandledrejection', (event) => {
             if (event.reason && event.reason.toString().toLowerCase().includes('video')) {
-                console.warn('Video-related promise rejection:', event.reason);
+                this.safeLog('warn', 'Video-related promise rejection:', event.reason);
                 this.trackVideoError({
                     code: 'promise_rejection',
                     message: event.reason.toString(),
@@ -74,7 +105,7 @@ class VideoBackgroundManager {
         // Handle general errors that might affect video
         window.addEventListener('error', (event) => {
             if (event.filename && event.filename.includes('video-background')) {
-                console.warn('Video background script error:', event.error);
+                this.safeLog('warn', 'Video background script error:', event.error);
                 this.useStaticFallback('Script error');
             }
         });
@@ -83,13 +114,13 @@ class VideoBackgroundManager {
     shouldUseVideo() {
         // Check for reduced motion preference
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            console.log('Reduced motion preferred - using static background');
+            this.safeLog('log', 'Reduced motion preferred - using static background');
             return false;
         }
         
         // Check for video support
         if (!this.video.canPlayType) {
-            console.log('Video not supported - using static background');
+            this.safeLog('log', 'Video not supported - using static background');
             return false;
         }
         
@@ -98,7 +129,7 @@ class VideoBackgroundManager {
         const mp4Support = this.video.canPlayType('video/mp4; codecs="avc1.42E01E"');
         
         if (!webmSupport && !mp4Support) {
-            console.log('Required video formats not supported - using static background');
+            this.safeLog('log', 'Required video formats not supported - using static background');
             return false;
         }
         
@@ -111,18 +142,18 @@ class VideoBackgroundManager {
         
         // Video loading events
         this.video.addEventListener('loadstart', () => {
-            console.log('Video loading started');
+            this.safeLog('log', 'Video loading started');
             this.trackVideoEvent('loadstart');
         });
         
         this.video.addEventListener('canplay', () => {
-            console.log('Video can start playing');
+            this.safeLog('log', 'Video can start playing');
             this.trackVideoEvent('canplay');
             this.onVideoReady();
         });
         
         this.video.addEventListener('canplaythrough', () => {
-            console.log('Video can play through without buffering');
+            this.safeLog('log', 'Video can play through without buffering');
             this.trackVideoEvent('canplaythrough');
         });
         
@@ -133,43 +164,42 @@ class VideoBackgroundManager {
                 message: e.target.error?.message || 'Unknown video error',
                 networkState: e.target.networkState,
                 readyState: e.target.readyState,
-                currentSrc: e.target.currentSrc,
                 timestamp: Date.now()
             };
             
-            console.error('Video loading error:', errorDetails);
+            this.safeLog('error', 'Video loading error:', errorDetails);
             this.trackVideoError(errorDetails);
             this.useStaticFallback('Video loading error');
         });
         
         this.video.addEventListener('stalled', () => {
-            console.warn('Video loading stalled');
+            this.safeLog('warn', 'Video loading stalled');
             this.trackVideoEvent('stalled');
         });
         
         this.video.addEventListener('suspend', () => {
-            console.warn('Video loading suspended');
+            this.safeLog('warn', 'Video loading suspended');
             this.trackVideoEvent('suspend');
         });
         
         this.video.addEventListener('abort', () => {
-            console.warn('Video loading aborted');
+            this.safeLog('warn', 'Video loading aborted');
             this.trackVideoEvent('abort');
         });
         
         // Playback events
         this.video.addEventListener('play', () => {
-            console.log('Video playback started');
+            this.safeLog('log', 'Video playback started');
             this.trackVideoEvent('play');
         });
         
         this.video.addEventListener('pause', () => {
-            console.log('Video playback paused');
+            this.safeLog('log', 'Video playback paused');
             this.trackVideoEvent('pause');
         });
         
         this.video.addEventListener('ended', () => {
-            console.log('Video playback ended');
+            this.safeLog('log', 'Video playback ended');
             this.trackVideoEvent('ended');
         });
     }
@@ -177,7 +207,7 @@ class VideoBackgroundManager {
     setupLoadingTimeout() {
         setTimeout(() => {
             if (this.video.readyState < 3) { // HAVE_FUTURE_DATA
-                console.warn('Video loading timeout - using static fallback');
+                this.safeLog('warn', 'Video loading timeout - using static fallback');
                 this.useStaticFallback('Loading timeout');
             }
         }, this.loadTimeout);
@@ -190,7 +220,7 @@ class VideoBackgroundManager {
             
             // Check for slow connections
             if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-                console.log('Slow connection detected - using static background');
+                this.safeLog('log', 'Slow connection detected - using static background');
                 this.useStaticFallback('Slow connection');
                 return;
             }
@@ -198,7 +228,7 @@ class VideoBackgroundManager {
             // Monitor connection changes
             connection.addEventListener('change', () => {
                 if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-                    console.log('Connection became slow - switching to static background');
+                    this.safeLog('log', 'Connection became slow - switching to static background');
                     this.useStaticFallback('Connection became slow');
                 }
             });
@@ -212,11 +242,11 @@ class VideoBackgroundManager {
         if (playPromise !== undefined) {
             playPromise
                 .then(() => {
-                    console.log('Video playback successful');
+                    this.safeLog('log', 'Video playback successful');
                     this.onVideoSuccess();
                 })
                 .catch((error) => {
-                    console.error('Video playback failed:', error);
+                    this.safeLog('error', 'Video playback failed:', error);
                     this.useStaticFallback('Playback failed');
                 });
         }
@@ -231,7 +261,7 @@ class VideoBackgroundManager {
     }
     
     useStaticFallback(reason) {
-        console.log(`Using static fallback: ${reason}`);
+        this.safeLog('log', `Using static fallback: ${reason}`);
         
         // Add class to show fallback
         this.heroSection.classList.add('no-video');
@@ -259,8 +289,10 @@ class VideoBackgroundManager {
             });
         }
         
-        // Log performance metrics
-        console.log(`Video loaded successfully in ${Math.round(loadTime)}ms`);
+        // Log performance metrics (only in development)
+        if (!this.isProduction) {
+            console.log(`Video loaded successfully in ${Math.round(loadTime)}ms`);
+        }
     }
     
     trackVideoError(errorDetails) {

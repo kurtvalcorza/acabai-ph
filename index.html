@@ -290,7 +290,14 @@
             <div class="modal-close" id="closeModal">&times;</div>
         </div>
         <div class="modal-content">
-            <iframe class="assessment-iframe"></iframe>
+            <iframe 
+                class="assessment-iframe"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer 'none'; camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'"
+                loading="lazy"
+                title="AI Readiness Assessment Tool"
+            ></iframe>
         </div>
     </div>
 

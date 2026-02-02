@@ -12,6 +12,10 @@ class PerformanceMonitor {
             userInteraction: {}
         };
         
+        this.isProduction = window.location.hostname !== 'localhost' && 
+                           window.location.hostname !== '127.0.0.1';
+        this.maxStorageSize = 5000; // 5KB limit
+        
         this.init();
     }
     
@@ -30,7 +34,10 @@ class PerformanceMonitor {
         this.trackUserInteractions();
         this.setupPerformanceObserver();
         
-        console.log('Performance monitoring initialized');
+        // Only log in development
+        if (!this.isProduction) {
+            console.log('Performance monitoring initialized');
+        }
     }
     
     trackPageLoadMetrics() {
@@ -197,16 +204,37 @@ class PerformanceMonitor {
             });
         }
         
-        // Log to console for debugging
-        console.log(`Performance Metric - ${eventName}:`, data);
+        // Log to console for debugging (development only)
+        if (!this.isProduction) {
+            console.log(`Performance Metric - ${eventName}:`, data);
+        }
         
-        // Store in local storage for debugging
-        const existingMetrics = JSON.parse(localStorage.getItem('acabai_performance_metrics') || '{}');
-        existingMetrics[eventName] = {
-            timestamp: Date.now(),
-            data: data
-        };
-        localStorage.setItem('acabai_performance_metrics', JSON.stringify(existingMetrics));
+        // Store in local storage for debugging with size limit
+        try {
+            const existingMetrics = JSON.parse(localStorage.getItem('acabai_performance_metrics') || '{}');
+            existingMetrics[eventName] = {
+                timestamp: Date.now(),
+                data: data
+            };
+            
+            const serialized = JSON.stringify(existingMetrics);
+            
+            // Check size limit
+            if (serialized.length > this.maxStorageSize) {
+                // Keep only the last 5 metrics
+                const entries = Object.entries(existingMetrics);
+                const recentEntries = entries.slice(-5);
+                const trimmedMetrics = Object.fromEntries(recentEntries);
+                localStorage.setItem('acabai_performance_metrics', JSON.stringify(trimmedMetrics));
+            } else {
+                localStorage.setItem('acabai_performance_metrics', serialized);
+            }
+        } catch (e) {
+            // Storage failed, silently ignore in production
+            if (!this.isProduction) {
+                console.warn('Failed to store performance metrics:', e);
+            }
+        }
     }
     
     // Public method to get all metrics

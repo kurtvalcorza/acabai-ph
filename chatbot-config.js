@@ -7,6 +7,22 @@ class ChatbotManager {
         ];
         this.strategy = 'fallback'; // Options: 'fallback', 'random', 'round-robin'
         this.currentIndex = 0;
+        this.allowedDomains = ['vercel.app', 'amplifyapp.com', 'localhost'];
+    }
+
+    // Validate URL before loading
+    isValidUrl(url) {
+        try {
+            const parsed = new URL(url);
+            // Check protocol
+            if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+                return false;
+            }
+            // Check if domain is allowed
+            return this.allowedDomains.some(domain => parsed.hostname.endsWith(domain));
+        } catch {
+            return false;
+        }
     }
 
     // Get URL based on strategy
@@ -42,8 +58,17 @@ class ChatbotManager {
             return;
         }
 
-        console.log(`Attempting to load chatbot from URL ${urlIndex + 1}: ${this.urls[urlIndex]}`);
-        iframe.src = this.urls[urlIndex];
+        const url = this.urls[urlIndex];
+        
+        // Validate URL before loading
+        if (!this.isValidUrl(url)) {
+            console.error(`Invalid or untrusted URL detected: ${url}`);
+            this.loadWithFallback(iframe, urlIndex + 1);
+            return;
+        }
+
+        console.log(`Attempting to load chatbot from URL ${urlIndex + 1}: ${url}`);
+        iframe.src = url;
         
         let hasLoaded = false;
         let timeoutId;
@@ -108,14 +133,30 @@ class ChatbotManager {
     }
 
     showErrorMessage(iframe) {
-        iframe.srcdoc = `
-            <div style="display: flex; align-items: center; justify-content: center; height: 100%; font-family: Inter, sans-serif; text-align: center; padding: 2rem;">
-                <div>
-                    <h3 style="color: #1e40af; margin-bottom: 1rem;">Service Temporarily Unavailable</h3>
-                    <p style="color: #6b7280;">Please try again later or contact us at <a href="mailto:info@asti.dost.gov.ph">info@asti.dost.gov.ph</a></p>
-                </div>
-            </div>
-        `;
+        // Use textContent to prevent XSS
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'display: flex; align-items: center; justify-content: center; height: 100%; font-family: Inter, sans-serif; text-align: center; padding: 2rem;';
+        
+        const contentDiv = document.createElement('div');
+        
+        const heading = document.createElement('h3');
+        heading.style.cssText = 'color: #1e40af; margin-bottom: 1rem;';
+        heading.textContent = 'Service Temporarily Unavailable';
+        
+        const paragraph = document.createElement('p');
+        paragraph.style.cssText = 'color: #6b7280;';
+        paragraph.textContent = 'Please try again later or contact us at ';
+        
+        const emailLink = document.createElement('a');
+        emailLink.href = 'mailto:info@asti.dost.gov.ph';
+        emailLink.textContent = 'info@asti.dost.gov.ph';
+        
+        paragraph.appendChild(emailLink);
+        contentDiv.appendChild(heading);
+        contentDiv.appendChild(paragraph);
+        errorDiv.appendChild(contentDiv);
+        
+        iframe.srcdoc = errorDiv.outerHTML;
     }
 }
 

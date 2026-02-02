@@ -1,14 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Security: Input validation and sanitization utilities
+    const SecurityUtils = {
+        sanitizeTheme(theme) {
+            const allowedThemes = ['light', 'dark'];
+            return allowedThemes.includes(theme) ? theme : 'light';
+        },
+        
+        sanitizeString(str, maxLength = 1000) {
+            if (typeof str !== 'string') return '';
+            return str.slice(0, maxLength).replace(/[<>]/g, '');
+        }
+    };
+
+    // Secure localStorage with expiration
+    const SecureStorage = {
+        setItem(key, value, ttl = null) {
+            try {
+                const item = {
+                    value: value,
+                    expiry: ttl ? Date.now() + ttl : null
+                };
+                const serialized = JSON.stringify(item);
+                
+                // Check size limit (5KB)
+                if (serialized.length > 5000) {
+                    console.warn('Data too large for storage');
+                    return false;
+                }
+                
+                localStorage.setItem(key, serialized);
+                return true;
+            } catch (e) {
+                console.error('Storage failed:', e);
+                return false;
+            }
+        },
+        
+        getItem(key) {
+            try {
+                const itemStr = localStorage.getItem(key);
+                if (!itemStr) return null;
+                
+                const item = JSON.parse(itemStr);
+                
+                // Check expiration
+                if (item.expiry && Date.now() > item.expiry) {
+                    localStorage.removeItem(key);
+                    return null;
+                }
+                
+                return item.value;
+            } catch (e) {
+                console.error('Storage retrieval failed:', e);
+                return null;
+            }
+        },
+        
+        removeItem(key) {
+            try {
+                localStorage.removeItem(key);
+                return true;
+            } catch (e) {
+                console.error('Storage removal failed:', e);
+                return false;
+            }
+        }
+    };
+
+    // Rate Limiter for user actions
+    class RateLimiter {
+        constructor(maxAttempts, timeWindow) {
+            this.maxAttempts = maxAttempts;
+            this.timeWindow = timeWindow;
+            this.attempts = new Map();
+        }
+        
+        canProceed(key) {
+            const now = Date.now();
+            const userAttempts = this.attempts.get(key) || [];
+            
+            // Remove old attempts outside time window
+            const recentAttempts = userAttempts.filter(
+                time => now - time < this.timeWindow
+            );
+            
+            if (recentAttempts.length >= this.maxAttempts) {
+                console.warn(`Rate limit exceeded for: ${key}`);
+                return false;
+            }
+            
+            recentAttempts.push(now);
+            this.attempts.set(key, recentAttempts);
+            return true;
+        }
+        
+        reset(key) {
+            this.attempts.delete(key);
+        }
+    }
+
+    // Initialize rate limiters
+    const chatbotLimiter = new RateLimiter(5, 60000); // 5 attempts per minute
+    const scrollLimiter = new RateLimiter(10, 1000); // 10 scrolls per second
+
     // Theme Toggle Logic
     const themeToggle = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
 
     // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = SecurityUtils.sanitizeTheme(SecureStorage.getItem('theme'));
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     // Initialize theme - always default to light mode
-    if (savedTheme) {
+    if (savedTheme && savedTheme !== 'light') {
         htmlElement.setAttribute('data-theme', savedTheme);
     } else {
         // Always default to light mode, ignore system preference
@@ -21,14 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
             htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            SecureStorage.setItem('theme', newTheme); // No expiration for theme preference
         });
     }
 
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         // Only update if user hasn't manually set a preference
-        if (!localStorage.getItem('theme')) {
+        if (!SecureStorage.getItem('theme')) {
             htmlElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
         }
     });
@@ -102,6 +206,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (assistantBtn && assistantPopup && closeModal) {
         assistantBtn.addEventListener('click', (e) => {
             e.preventDefault();
+            
+            // Rate limiting for chatbot opening
+            if (!chatbotLimiter.canProceed('chatbot_open')) {
+                console.warn('Please wait before opening the chatbot again');
+                return;
+            }
+            
             assistantPopup.classList.add('active');
             assistantBtn.classList.add('hidden');
         });

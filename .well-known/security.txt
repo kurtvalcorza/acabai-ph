@@ -1,0 +1,9 @@
+Contact: mailto:info@asti.dost.gov.ph
+Expires: 2027-02-02T00:00:00.000Z
+Preferred-Languages: en, tl
+Canonical: https://acabai-ph.vercel.app/.well-known/security.txt
+
+# Security Contact Information
+# If you discover a security vulnerability in this application,
+# please report it to info@asti.dost.gov.ph
+# We appreciate responsible disclosure and will respond promptly.
