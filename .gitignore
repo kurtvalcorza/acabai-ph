@@ -8,3 +8,10 @@ Thumbs.db
 .idea/
 tests/
 validate-implementation.md
+
+# Kiro development files
+.kiro/specs/
+.kiro/steering/
+
+# Test files
+test-chatbot.html
