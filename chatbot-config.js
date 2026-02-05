@@ -2,8 +2,8 @@
 class ChatbotManager {
     constructor() {
         this.urls = [
-            'https://ai-readiness-assessment-eta.vercel.app/',
-            'https://main.d2rz9a4li16ohv.amplifyapp.com/'
+            'https://main.d2rz9a4li16ohv.amplifyapp.com/',
+            'https://ai-readiness-assessment-eta.vercel.app/'
         ];
         this.strategy = 'fallback'; // Options: 'fallback', 'random', 'round-robin'
         this.currentIndex = 0;
