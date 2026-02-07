@@ -356,8 +356,10 @@ class VideoBackgroundManager {
 // Initialize video background manager
 const videoManager = new VideoBackgroundManager();
 
-// Expose to global scope for debugging
-window.videoManager = videoManager;
+// Expose to global scope for debugging (development only)
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.videoManager = videoManager;
+}
 
 // Handle visibility changes to pause/resume video
 document.addEventListener('visibilitychange', () => {

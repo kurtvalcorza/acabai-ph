@@ -260,8 +260,10 @@ class PerformanceMonitor {
 // Initialize performance monitoring
 const performanceMonitor = new PerformanceMonitor();
 
-// Expose to global scope for debugging
-window.performanceMonitor = performanceMonitor;
+// Expose to global scope for debugging (development only)
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.performanceMonitor = performanceMonitor;
+}
 
 // Export for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {

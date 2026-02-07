@@ -35,9 +35,7 @@
     <meta name="twitter:image" content="https://acabai-ph.vercel.app/assets-optimized/social-preview.png">
 
     <!-- Vercel Analytics -->
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
+    <script src="vercel-analytics-init.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -322,7 +320,7 @@
         <div class="modal-content">
             <iframe 
                 class="assessment-iframe"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allow="accelerometer 'none'; camera 'none'; geolocation 'none'; microphone 'none'; payment 'none'"
                 loading="lazy"
@@ -371,9 +369,7 @@
     <script src="performance-monitor.js"></script>
 
     <!-- Vercel Speed Insights -->
-    <script>
-        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-    </script>
+    <script src="vercel-speed-insights-init.js"></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 

@@ -203,7 +203,10 @@ class InitiativeModal {
         
         // Subtitle
         if (this.subtitleElement) {
-            this.subtitleElement.innerHTML = `<strong>${data.subtitle}</strong>`;
+            this.subtitleElement.textContent = '';
+            const strong = document.createElement('strong');
+            strong.textContent = data.subtitle;
+            this.subtitleElement.appendChild(strong);
         }
         
         // Description
