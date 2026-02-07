@@ -7,7 +7,11 @@ class ChatbotManager {
         ];
         this.strategy = 'fallback'; // Options: 'fallback', 'random', 'round-robin'
         this.currentIndex = 0;
-        this.allowedDomains = ['vercel.app', 'amplifyapp.com', 'localhost'];
+        this.allowedHostnames = [
+            'ai-readiness-assessment-eta.vercel.app',
+            'main.d2rz9a4li16ohv.amplifyapp.com',
+            'localhost'
+        ];
     }
 
     // Validate URL before loading
@@ -18,8 +22,8 @@ class ChatbotManager {
             if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
                 return false;
             }
-            // Check if domain is allowed
-            return this.allowedDomains.some(domain => parsed.hostname.endsWith(domain));
+            // Check if hostname is in the exact allowlist
+            return this.allowedHostnames.includes(parsed.hostname);
         } catch {
             return false;
         }
