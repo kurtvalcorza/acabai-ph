@@ -8,7 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         sanitizeString(str, maxLength = 1000) {
             if (typeof str !== 'string') return '';
-            return str.slice(0, maxLength).replace(/[<>]/g, '');
+            return str.slice(0, maxLength).replace(/[<>"'&]/g, (ch) => ({
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#x27;',
+                '&': '&amp;'
+            })[ch]);
         }
     };
 

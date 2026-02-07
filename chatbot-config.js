@@ -10,7 +10,7 @@ class ChatbotManager {
         this.allowedHostnames = [
             'ai-readiness-assessment-eta.vercel.app',
             'main.d2rz9a4li16ohv.amplifyapp.com',
-            'localhost'
+            ...(window.location.hostname === 'localhost' ? ['localhost'] : [])
         ];
     }
 
@@ -18,8 +18,9 @@ class ChatbotManager {
     isValidUrl(url) {
         try {
             const parsed = new URL(url);
-            // Check protocol
-            if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+            // Check protocol — allow http only for localhost in dev
+            const isLocalDev = parsed.hostname === 'localhost';
+            if (parsed.protocol !== 'https:' && !(isLocalDev && parsed.protocol === 'http:')) {
                 return false;
             }
             // Check if hostname is in the exact allowlist
