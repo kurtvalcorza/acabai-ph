@@ -51,7 +51,7 @@ const initiativeData = {
             'Using advanced Text-to-SQL and Retrieval-Augmented Generation, iTANONG provides a secure, internal intelligence tool that grounds its answers in your verified data. It\'s about putting the power of data directly into the hands of decision-makers, frontline workers, and citizens—no technical skills required.'
         ],
         image: {
-            png: 'assets-optimized/5.png',
+            png: 'assets-optimized/5.gif',
             webp: 'assets-optimized/5.webp',
             alt: 'iTANONG Interface'
         },
