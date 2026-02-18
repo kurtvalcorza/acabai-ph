@@ -36,7 +36,7 @@ const initiativeData = {
         actions: [
             {
                 text: 'Explore DIMER',
-                url: 'https://dimer5.asti.dost.gov.ph/',
+                url: 'https://launchstaging.dimer1.asti.dost.gov.ph/',
                 external: true
             }
         ]
