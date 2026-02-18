@@ -87,7 +87,7 @@ DIMER is the Philippines’ first open repository of AI models, created to make 
 - **Food Security:** Accelerate the mapping of every rice field in the country to safeguard our food supply
 
 Explore DIMER (public beta): 
-https://dimer5.asti.dost.gov.ph/
+https://launchstaging.dimer1.asti.dost.gov.ph/
 
 ### iTANONG: Leveraging NLP for Inclusive Data Access
 
