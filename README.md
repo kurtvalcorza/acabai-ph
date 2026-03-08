@@ -159,16 +159,22 @@ The site includes built-in performance monitoring via `performance-monitor.js` t
 The AI Readiness Assessment chatbot is deployed on multiple platforms for reliability:
 
 - **Primary Instance:** Vercel (https://ai-readiness-assessment-eta.vercel.app/)
-- **Backup Instance:** AWS Amplify (https://main.d2rz9a4li16ohv.amplifyapp.com/)
+- **Backup Instance:** AWS Amplify (https://main.d2rz9a4li16ohv.amplifyapp.com/) - Can be paused for cost optimization
 
 #### Automatic Failover System
 
 The website implements an intelligent fallback system:
 
-1. **Default Behavior:** Attempts to load the Vercel instance first
-2. **Automatic Fallback:** If the primary fails or times out (5 seconds), automatically switches to AWS Amplify
+1. **Default Behavior:** Attempts to load the Vercel instance first (primary)
+2. **Automatic Fallback:** If the primary fails or times out (5 seconds), automatically switches to AWS Amplify backup
 3. **Error Handling:** If both instances fail, displays a user-friendly error message with contact information
 4. **Performance Optimization:** Preloads the chatbot on hover for faster response times
+
+#### Cost Optimization Strategy
+
+- **Primary Traffic:** Routed to Vercel to minimize AWS costs
+- **AWS Amplify:** Can be temporarily paused in AWS Console when not needed as active backup
+- **Disaster Recovery:** If Vercel experiences downtime, AWS Amplify can be quickly re-enabled and traffic redirected
 
 #### Configuration Options
 
@@ -192,8 +198,20 @@ You can also use the comprehensive test suite at `/test-chatbot.html` for detail
 
 The site is deployed on multiple platforms:
 
-- **Primary:** Vercel - https://acabai-ph.vercel.app/
-- **Mirror:** AWS Amplify - https://master.d3bx5uqqofxvve.amplifyapp.com/
+- **Primary:** Vercel - https://acabai-ph.vercel.app/ (default deployment)
+- **Mirror:** AWS Amplify - https://master.d3bx5uqqofxvve.amplifyapp.com/ (backup, can be paused for cost savings)
+
+### Deployment Strategy
+
+**Normal Operations:**
+- Vercel serves as the primary deployment for both static site and chatbot
+- AWS Amplify can be paused in AWS Console to reduce costs
+- TinyURL or custom short links can point to Vercel deployment
+
+**Disaster Recovery:**
+- If Vercel experiences downtime, enable AWS Amplify deployment
+- Update TinyURL/short links to point to AWS Amplify URL
+- Chatbot automatically fails over to AWS Amplify instance
 
 For manual deployment:
 1. Build optimized assets
