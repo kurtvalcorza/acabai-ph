@@ -1,9 +1,10 @@
 // Chatbot Configuration with Load Balancing Options
+// Version: 1.1 - Vercel Primary
 class ChatbotManager {
     constructor() {
         this.urls = [
-            'https://ai-readiness-assessment-eta.vercel.app/',
-            'https://main.d2rz9a4li16ohv.amplifyapp.com/'
+            'https://ai-readiness-assessment-eta.vercel.app/', // PRIMARY
+            'https://main.d2rz9a4li16ohv.amplifyapp.com/' // BACKUP
         ];
         this.strategy = 'fallback'; // Options: 'fallback', 'random', 'round-robin'
         this.currentIndex = 0;
@@ -12,6 +13,8 @@ class ChatbotManager {
             'main.d2rz9a4li16ohv.amplifyapp.com',
             ...(window.location.hostname === 'localhost' ? ['localhost'] : [])
         ];
+        
+        console.log('ChatbotManager initialized - Primary: Vercel, Backup: AWS Amplify');
     }
 
     // Validate URL before loading
@@ -49,11 +52,18 @@ class ChatbotManager {
 
     // Load chatbot with selected strategy
     loadChatbot(iframe) {
+        // Temporarily hardcoded to Vercel only for testing
+        const vercelUrl = 'https://ai-readiness-assessment-eta.vercel.app/';
+        console.log('Loading chatbot from Vercel (hardcoded):', vercelUrl);
+        iframe.src = vercelUrl;
+        
+        /* Original failover logic - commented out temporarily
         if (this.strategy === 'fallback') {
             this.loadWithFallback(iframe);
         } else {
             iframe.src = this.getUrl();
         }
+        */
     }
 
     // Fallback implementation with improved error detection
