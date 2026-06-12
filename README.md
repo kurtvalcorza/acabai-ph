@@ -23,16 +23,20 @@ python -m http.server 8000
 
 ```
 acabai-ph/
-├── index.html              # Main HTML file
-├── style.css               # Styles and responsive design
-├── script.js               # Interactive functionality
-├── chatbot-config.js       # Chatbot failover and load balancing
-├── config.js               # Environment-based configuration
-├── video-background.js     # Video background management
-├── performance-monitor.js  # Performance optimization
-├── assets-optimized/       # Optimized images and media
-├── tests/                  # Test files
-└── package.json           # Project configuration
+├── index.html                     # Main HTML file
+├── style.css                      # Styles and responsive design
+├── script.js                      # Interactive functionality and chatbot modal
+├── chatbot-config.js              # Chatbot failover and load balancing
+├── carousel.js                    # Infinite-scrolling initiative carousel
+├── initiative-modal.js            # Modal overlay for initiative content
+├── video-background.js            # Video background management
+├── performance-monitor.js         # Performance optimization
+├── vercel-analytics-init.js       # Vercel Analytics bootstrap
+├── vercel-speed-insights-init.js  # Vercel Speed Insights bootstrap
+├── assets-optimized/              # Optimized images and media
+├── vercel.json                    # Vercel deployment config and security headers
+├── amplify.yml                    # AWS Amplify deployment config (mirror, currently paused)
+└── package.json                   # Project configuration
 ```
 
 ## 🛠 Technical Stack
@@ -41,6 +45,7 @@ acabai-ph/
 - **Styling**: Custom CSS with CSS Grid and Flexbox
 - **Fonts**: Inter (Google Fonts)
 - **Performance**: Optimized assets, lazy loading
+- **Analytics**: Vercel Analytics and Speed Insights
 - **Server**: Python HTTP server for development
 
 ## ✨ Features
@@ -138,12 +143,6 @@ npm run dev
 python -m http.server 8000
 # or
 python3 -m http.server 8000
-```
-
-### Testing
-```bash
-# Run tests (if available)
-npm test
 ```
 
 ### Performance Monitoring
