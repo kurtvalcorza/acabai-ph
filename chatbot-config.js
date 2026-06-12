@@ -1,5 +1,4 @@
 // Chatbot Configuration with Load Balancing Options
-// Version: 1.1 - Vercel Primary
 class ChatbotManager {
     constructor() {
         this.urls = [
@@ -13,8 +12,6 @@ class ChatbotManager {
             'main.d2rz9a4li16ohv.amplifyapp.com',
             ...(window.location.hostname === 'localhost' ? ['localhost'] : [])
         ];
-        
-        console.log('ChatbotManager initialized - Primary: Vercel, Backup: AWS Amplify');
     }
 
     // Validate URL before loading
@@ -52,18 +49,18 @@ class ChatbotManager {
 
     // Load chatbot with selected strategy
     loadChatbot(iframe) {
-        // Temporarily hardcoded to Vercel only for testing
-        const vercelUrl = 'https://ai-readiness-assessment-eta.vercel.app/';
-        console.log('Loading chatbot from Vercel (hardcoded):', vercelUrl);
-        iframe.src = vercelUrl;
-        
-        /* Original failover logic - commented out temporarily
         if (this.strategy === 'fallback') {
             this.loadWithFallback(iframe);
-        } else {
-            iframe.src = this.getUrl();
+            return;
         }
-        */
+
+        const url = this.getUrl();
+        if (!this.isValidUrl(url)) {
+            console.error(`Invalid or untrusted URL detected: ${url}`);
+            this.showErrorMessage(iframe);
+            return;
+        }
+        iframe.src = url;
     }
 
     // Fallback implementation with improved error detection

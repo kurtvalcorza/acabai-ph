@@ -209,16 +209,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const assistantPopup = document.getElementById('chatbotPopup');
     const closeModal = document.getElementById('closeModal');
 
+    // Chatbot manager handles URL selection, validation, and failover
+    const chatbotManager = new ChatbotManager();
+
+    const ensureChatbotLoaded = () => {
+        const iframe = assistantPopup?.querySelector('.assessment-iframe');
+        if (iframe && !iframe.src) {
+            chatbotManager.loadChatbot(iframe);
+        }
+    };
+
     if (assistantBtn && assistantPopup && closeModal) {
         assistantBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             // Rate limiting for chatbot opening
             if (!chatbotLimiter.canProceed('chatbot_open')) {
                 console.warn('Please wait before opening the chatbot again');
                 return;
             }
-            
+
+            ensureChatbotLoaded();
             assistantPopup.classList.add('active');
             assistantBtn.classList.add('hidden');
         });
@@ -228,6 +239,18 @@ document.addEventListener('DOMContentLoaded', () => {
             assistantPopup.classList.remove('active');
             assistantBtn.classList.remove('hidden');
         });
+
+        // Keyboard activation for the non-native button triggers
+        const activateOnEnterOrSpace = (element) => {
+            element.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    element.click();
+                }
+            });
+        };
+        activateOnEnterOrSpace(assistantBtn);
+        activateOnEnterOrSpace(closeModal);
 
         // Close popup when clicking outside
         document.addEventListener('click', (e) => {
@@ -324,18 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize chatbot manager
-    const chatbotManager = new ChatbotManager();
-    
     // Preload iframe when modal is about to be opened (on hover)
-    let iframePreloaded = false;
-    assistantBtn?.addEventListener('mouseenter', () => {
-        if (!iframePreloaded) {
-            const iframe = assistantPopup?.querySelector('.assessment-iframe');
-            if (iframe && !iframe.src) {
-                chatbotManager.loadChatbot(iframe);
-                iframePreloaded = true;
-            }
-        }
-    });
+    assistantBtn?.addEventListener('mouseenter', ensureChatbotLoaded);
 });

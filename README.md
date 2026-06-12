@@ -165,10 +165,11 @@ The AI Readiness Assessment chatbot is deployed on multiple platforms for reliab
 
 The website implements an intelligent fallback system:
 
-1. **Default Behavior:** Attempts to load the Vercel instance first (primary)
-2. **Automatic Fallback:** If the primary fails or times out (5 seconds), automatically switches to AWS Amplify backup
-3. **Error Handling:** If both instances fail, displays a user-friendly error message with contact information
-4. **Performance Optimization:** Preloads the chatbot on hover for faster response times
+1. **URL Validation:** Every chatbot URL is validated against an HTTPS hostname allowlist before it is loaded, regardless of the selected strategy
+2. **Default Behavior:** Attempts to load the Vercel instance first (primary)
+3. **Automatic Fallback:** If the primary fails or times out (5 seconds), automatically switches to AWS Amplify backup
+4. **Error Handling:** If both instances fail, displays a user-friendly error message with contact information
+5. **Performance Optimization:** Preloads the chatbot on hover; the chatbot also loads when the modal is opened by click or keyboard, so no input method depends on hover
 
 #### Cost Optimization Strategy
 
@@ -191,8 +192,6 @@ To test the fallback functionality:
 2. Block requests to the primary Vercel URL
 3. Open the chatbot - it should automatically fall back to AWS Amplify
 4. Check console for fallback process warnings
-
-You can also use the comprehensive test suite at `/test-chatbot.html` for detailed failover testing and metrics.
 
 ## 🚀 Deployment
 
