@@ -234,4 +234,4 @@ For manual deployment:
 
 ## 📄 License
 
-MIT — built with AI
+MIT — built with AI. See [LICENSE](LICENSE) for the full text.
