@@ -2,8 +2,10 @@
 class ChatbotManager {
     constructor() {
         this.urls = [
-            'https://ai-readiness-assessment-eta.vercel.app/', // PRIMARY
-            'https://main.d2rz9a4li16ohv.amplifyapp.com/' // BACKUP
+            'https://ai-readiness-assessment-eta.vercel.app/' // PRIMARY
+            // Backup (AWS Amplify) temporarily paused to stop billing.
+            // To re-enable, restore the app and re-add:
+            // 'https://main.d2rz9a4li16ohv.amplifyapp.com/'
         ];
         this.strategy = 'fallback'; // Options: 'fallback', 'random', 'round-robin'
         this.currentIndex = 0;
