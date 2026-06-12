@@ -1,5 +1,4 @@
 // Chatbot Configuration with Load Balancing Options
-// Version: 1.1 - Vercel Primary
 class ChatbotManager {
     constructor() {
         this.urls = [
@@ -13,8 +12,6 @@ class ChatbotManager {
             'main.d2rz9a4li16ohv.amplifyapp.com',
             ...(window.location.hostname === 'localhost' ? ['localhost'] : [])
         ];
-        
-        console.log('ChatbotManager initialized - Primary: Vercel, Backup: AWS Amplify');
     }
 
     // Validate URL before loading
@@ -52,22 +49,33 @@ class ChatbotManager {
 
     // Load chatbot with selected strategy
     loadChatbot(iframe) {
-        // Temporarily hardcoded to Vercel only for testing
-        const vercelUrl = 'https://ai-readiness-assessment-eta.vercel.app/';
-        console.log('Loading chatbot from Vercel (hardcoded):', vercelUrl);
-        iframe.src = vercelUrl;
-        
-        /* Original failover logic - commented out temporarily
         if (this.strategy === 'fallback') {
             this.loadWithFallback(iframe);
-        } else {
-            iframe.src = this.getUrl();
+            return;
         }
-        */
+
+        const url = this.getUrl();
+        if (!this.isValidUrl(url)) {
+            console.error(`Invalid or untrusted URL detected: ${url}`);
+            this.showErrorMessage(iframe);
+            return;
+        }
+        iframe.src = url;
+    }
+
+    // Probe a host before pointing the iframe at it. Browsers fire the
+    // iframe 'load' event even for failed navigations and suppress 'error'
+    // cross-origin, so iframe events alone cannot detect an unreachable host.
+    isReachable(url, timeoutMs = 4000) {
+        const probe = fetch(url, { method: 'HEAD', mode: 'no-cors', cache: 'no-store' })
+            .then(() => true)
+            .catch(() => false);
+        const timeout = new Promise((resolve) => setTimeout(() => resolve(false), timeoutMs));
+        return Promise.race([probe, timeout]);
     }
 
     // Fallback implementation with improved error detection
-    loadWithFallback(iframe, urlIndex = 0) {
+    async loadWithFallback(iframe, urlIndex = 0) {
         if (urlIndex >= this.urls.length) {
             this.showErrorMessage(iframe);
             return;
@@ -78,6 +86,14 @@ class ChatbotManager {
         // Validate URL before loading
         if (!this.isValidUrl(url)) {
             console.error(`Invalid or untrusted URL detected: ${url}`);
+            this.loadWithFallback(iframe, urlIndex + 1);
+            return;
+        }
+
+        // Skip hosts that don't respond at the network level; the iframe
+        // listeners below can't be trusted to report those failures
+        if (!(await this.isReachable(url))) {
+            console.warn(`Chatbot URL ${urlIndex + 1} is unreachable, trying fallback...`);
             this.loadWithFallback(iframe, urlIndex + 1);
             return;
         }
