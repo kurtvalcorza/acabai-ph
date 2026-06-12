@@ -233,6 +233,6 @@ For manual deployment:
 4. Test thoroughly
 5. Submit a pull request
 
----
+## 📄 License
 
-*Built with AI assistance for 🇵🇭*
+MIT — built with AI
